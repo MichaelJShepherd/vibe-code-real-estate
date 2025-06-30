@@ -3,98 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Real Estate App</title>
+    <title>RealtyPro - Real Estate App</title>
     <style>
+      :root {
+        --primary: #101828;
+        --accent: #6366f1;
+        --bg: #f8fafc;
+        --card-bg: #fff;
+        --border: #e5e7eb;
+        --muted: #6b7280;
+        --radius: 16px;
+      }
       body {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         margin: 0;
-        background: #f4f6f8;
-        color: #222;
+        background: var(--bg);
+        color: var(--primary);
       }
-      header {
-        background: #2d3e50;
-        color: #fff;
-        padding: 2rem 1rem;
-        text-align: center;
-      }
-      .container {
-        max-width: 900px;
-        margin: 2rem auto;
-        padding: 1rem;
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-      }
-      h1 {
-        margin: 0 0 0.5rem 0;
-      }
-      .properties {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 1.5rem;
-        margin-bottom: 2rem;
-      }
-      .property {
-        background: #f9fafb;
-        border-radius: 6px;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-        padding: 1rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        transition: transform 0.2s, box-shadow 0.2s;
-      }
-      .property:hover {
-        transform: scale(1.04);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-      }
-      .property img {
-        width: 100%;
-        max-width: 220px;
-        border-radius: 4px;
-        margin-bottom: 1rem;
-      }
-      .property h2 {
-        margin: 0.5rem 0 0.2rem 0;
-        font-size: 1.2rem;
-      }
-      .property p {
-        margin: 0.2rem 0 0.5rem 0;
-        color: #555;
-        font-size: 0.97rem;
-      }
-      .property .price {
-        font-weight: bold;
-        color: #2d3e50;
-        margin-bottom: 0.5rem;
-      }
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 0.7rem;
-        max-width: 400px;
-        margin: 0 auto;
-      }
-      input,
-      textarea {
-        padding: 0.6rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 1rem;
-      }
-      button {
-        background: #2d3e50;
-        color: #fff;
-        border: none;
-        padding: 0.7rem;
-        border-radius: 4px;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: background 0.2s;
-      }
-      button:hover {
-        background: #1a2533;
-      }
+      /* Navbar */
       .navbar {
         width: 100%;
         background: #fff;
@@ -102,65 +28,350 @@
         position: sticky;
         top: 0;
         z-index: 1000;
+        padding: 0;
       }
       .navbar-container {
-        max-width: 1100px;
+        max-width: 1200px;
         margin: 0 auto;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0.7rem 1rem;
+        padding: 0.5rem 1.5rem;
       }
       .navbar-logo {
+        display: flex;
+        align-items: center;
         font-size: 1.3rem;
         font-weight: bold;
-        color: #2d3e50;
+        color: var(--primary);
         text-decoration: none;
+        gap: 0.5rem;
+      }
+      .navbar-logo svg {
+        width: 28px;
+        height: 28px;
+        fill: var(--accent);
       }
       .navbar-links {
         list-style: none;
         display: flex;
-        gap: 1.5rem;
+        gap: 2rem;
         margin: 0;
         padding: 0;
+        align-items: center;
       }
       .navbar-links li a {
-        color: #2d3e50;
+        color: var(--primary);
         text-decoration: none;
         font-size: 1rem;
-        transition: color 0.2s;
+        padding: 0.3rem 0.8rem;
+        border-radius: 6px;
+        transition: background 0.2s, color 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
       }
+      .navbar-links li a.active,
       .navbar-links li a:hover {
-        color: #1a2533;
+        background: var(--accent);
+        color: #fff;
       }
       .navbar-btn {
-        background: #2d3e50;
+        background: var(--primary);
         color: #fff;
-        padding: 0.5rem 1.1rem;
-        border-radius: 4px;
+        padding: 0.5rem 1.2rem;
+        border-radius: 8px;
         text-decoration: none;
         font-weight: 500;
         font-size: 1rem;
         transition: background 0.2s;
         margin-left: 1.5rem;
+        border: none;
+        cursor: pointer;
+        display: inline-block;
       }
       .navbar-btn:hover {
-        background: #1a2533;
+        background: var(--accent);
       }
-      @media (max-width: 700px) {
+      .navbar-icons {
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+        margin-left: 1.5rem;
+      }
+      .navbar-icons svg {
+        width: 22px;
+        height: 22px;
+        fill: var(--primary);
+        cursor: pointer;
+        transition: fill 0.2s;
+      }
+      .navbar-icons svg:hover {
+        fill: var(--accent);
+      }
+      @media (max-width: 900px) {
         .navbar-container {
           flex-direction: column;
           align-items: flex-start;
+          gap: 0.7rem;
         }
         .navbar-links {
-          flex-direction: column;
-          gap: 0.7rem;
-          width: 100%;
-          margin-top: 0.5rem;
+          gap: 1rem;
         }
-        .navbar-btn {
+        .navbar-btn,
+        .navbar-icons {
           margin-left: 0;
-          margin-top: 0.7rem;
+        }
+      }
+      /* Hero/Search Section */
+      .hero {
+        max-width: 700px;
+        margin: 2.5rem auto 1.5rem auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+      }
+      .search-bar {
+        display: flex;
+        gap: 1rem;
+        width: 100%;
+        background: #fff;
+        border-radius: var(--radius);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+        padding: 1.2rem 1rem;
+        align-items: center;
+        justify-content: center;
+      }
+      .search-bar input,
+      .search-bar select {
+        padding: 0.7rem 1rem;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        font-size: 1rem;
+        outline: none;
+        background: #f9fafb;
+        min-width: 180px;
+      }
+      .search-bar button {
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        padding: 0.7rem 1.5rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background 0.2s;
+      }
+      .search-bar button:hover {
+        background: var(--accent);
+      }
+      /* Stats Cards */
+      .stats-row {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        margin: 2rem 0 2.5rem 0;
+        flex-wrap: wrap;
+      }
+      .stat-card {
+        background: #fff;
+        border-radius: var(--radius);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+        padding: 1.2rem 2.2rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        min-width: 180px;
+        flex: 1 1 180px;
+        max-width: 260px;
+      }
+      .stat-icon {
+        background: #f1f5ff;
+        border-radius: 50%;
+        padding: 0.7rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .stat-icon svg {
+        width: 28px;
+        height: 28px;
+        fill: var(--accent);
+      }
+      .stat-info {
+        display: flex;
+        flex-direction: column;
+      }
+      .stat-value {
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+      .stat-label {
+        color: var(--muted);
+        font-size: 0.97rem;
+      }
+      /* Featured Properties */
+      .featured-section {
+        max-width: 1200px;
+        margin: 0 auto 2rem auto;
+        padding: 0 1rem;
+      }
+      .featured-title {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 0.3rem;
+        margin-top: 2.5rem;
+      }
+      .featured-desc {
+        text-align: center;
+        color: var(--muted);
+        margin-bottom: 2.5rem;
+        font-size: 1.1rem;
+      }
+      .properties-row {
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .property-card {
+        background: #fff;
+        border-radius: var(--radius);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        width: 340px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        margin-bottom: 2rem;
+        transition: transform 0.18s, box-shadow 0.18s;
+      }
+      .property-card:hover {
+        transform: translateY(-6px) scale(1.03);
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.13);
+      }
+      .property-img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        position: relative;
+      }
+      .property-badge {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        background: var(--accent);
+        color: #fff;
+        font-size: 0.92rem;
+        font-weight: 500;
+        padding: 0.3rem 0.9rem;
+        border-radius: 8px;
+        z-index: 2;
+      }
+      .property-fav {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background: #fff;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+        cursor: pointer;
+        z-index: 2;
+        transition: background 0.2s;
+      }
+      .property-fav svg {
+        width: 20px;
+        height: 20px;
+        fill: #e11d48;
+      }
+      .property-fav:hover {
+        background: #ffe4e6;
+      }
+      .property-content {
+        padding: 1.2rem 1.2rem 1.5rem 1.2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+        flex: 1;
+      }
+      .property-type {
+        display: inline-block;
+        background: #f1f5ff;
+        color: var(--accent);
+        font-size: 0.92rem;
+        font-weight: 500;
+        padding: 0.2rem 0.8rem;
+        border-radius: 6px;
+        margin-bottom: 0.3rem;
+      }
+      .property-title {
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin: 0.2rem 0 0.1rem 0;
+      }
+      .property-location {
+        color: var(--muted);
+        font-size: 0.97rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      .property-price {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--primary);
+        margin-bottom: 0.2rem;
+      }
+      .property-details {
+        display: flex;
+        gap: 1.2rem;
+        color: var(--muted);
+        font-size: 0.97rem;
+        align-items: center;
+        margin: 0.5rem 0 0.7rem 0;
+      }
+      .property-details span {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+      .property-details svg {
+        width: 18px;
+        height: 18px;
+        fill: var(--muted);
+      }
+      .property-btn {
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        padding: 0.7rem 0;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 0.5rem;
+        transition: background 0.2s;
+      }
+      .property-btn:hover {
+        background: var(--accent);
+      }
+      @media (max-width: 1100px) {
+        .properties-row {
+          flex-direction: column;
+          align-items: center;
+        }
+        .property-card {
+          width: 95vw;
+          max-width: 400px;
         }
       }
     </style>
@@ -168,65 +379,256 @@
   <body>
     <nav class="navbar">
       <div class="navbar-container">
-        <a href="index.html" class="navbar-logo">Dream Homes Realty</a>
+        <a href="index.html" class="navbar-logo">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M3 10.5V19a2 2 0 0 0 2 2h4v-5h6v5h4a2 2 0 0 0 2-2v-8.5a2 2 0 0 0-.76-1.56l-7-5.6a2 2 0 0 0-2.48 0l-7 5.6A2 2 0 0 0 3 10.5z"
+            />
+          </svg>
+          RealtyPro
+        </a>
         <ul class="navbar-links">
-          <li><a href="search.html">Search</a></li>
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="search.html">Properties</a></li>
           <li><a href="agents.html">Agents</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
+        <div class="navbar-icons">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+            />
+          </svg>
+          <svg viewBox="0 0 24 24">
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="2"
+              fill="none"
+            />
+            <circle cx="12" cy="10" r="3" />
+            <path d="M12 13c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z" />
+          </svg>
+        </div>
         <a href="list-property.html" class="navbar-btn">List Property</a>
       </div>
     </nav>
-    <header>
-      <h1>Dream Homes Realty</h1>
-      <p>Find your perfect home today</p>
-    </header>
-    <div class="container">
-      <h2>Featured Properties</h2>
-      <div class="properties">
-        <div class="property">
-          <img
-            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
-            alt="Modern Family Home"
-          />
-          <h2>Modern Family Home</h2>
-          <p>4 beds • 3 baths • 2,500 sqft</p>
-          <div class="price">$450,000</div>
-          <p>
-            Located in a quiet suburb, this spacious home features a large
-            backyard and modern amenities.
-          </p>
+    <div class="hero">
+      <form class="search-bar">
+        <input type="text" placeholder="Enter location, city, or ZIP code" />
+        <select>
+          <option>Property Type</option>
+          <option>Apartment</option>
+          <option>House</option>
+          <option>Condo</option>
+        </select>
+        <button type="submit">Search</button>
+      </form>
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M3 10.5V19a2 2 0 0 0 2 2h4v-5h6v5h4a2 2 0 0 0 2-2v-8.5a2 2 0 0 0-.76-1.56l-7-5.6a2 2 0 0 0-2.48 0l-7 5.6A2 2 0 0 0 3 10.5z"
+              />
+            </svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">10,000+</div>
+            <div class="stat-label">Properties Listed</div>
+          </div>
         </div>
-        <div class="property">
-          <img
-            src="https://images.unsplash.com/photo-1460518451285-97b6aa326961?auto=format&fit=crop&w=400&q=80"
-            alt="Downtown Apartment"
-          />
-          <h2>Downtown Apartment</h2>
-          <p>2 beds • 2 baths • 1,100 sqft</p>
-          <div class="price">$320,000</div>
-          <p>
-            Enjoy city living in this stylish apartment with stunning skyline
-            views and top-notch facilities.
-          </p>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 21c4.97 0 9-4.03 9-9s-4.03-9-9-9-9 4.03-9 9 4.03 9 9 9zm0-2c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7zm-1-4h2v2h-2zm0-8h2v6h-2z"
+              />
+            </svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">$2.5B+</div>
+            <div class="stat-label">Total Sales</div>
+          </div>
         </div>
-        <div class="property">
-          <img
-            src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=400&q=80"
-            alt="Cozy Cottage"
-          />
-          <h2>Cozy Cottage</h2>
-          <p>3 beds • 2 baths • 1,600 sqft</p>
-          <div class="price">$275,000</div>
-          <p>
-            This charming cottage offers a peaceful retreat with a beautiful
-            garden and rustic interiors.
-          </p>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+              />
+            </svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">50+</div>
+            <div class="stat-label">Cities Covered</div>
+          </div>
         </div>
       </div>
     </div>
-    <script>
-      // Remove form handling script, not needed on home page
-    </script>
+    <div class="featured-section">
+      <div class="featured-title">Featured Properties</div>
+      <div class="featured-desc">
+        Discover our handpicked selection of premium properties featuring
+        exceptional value and prime locations.
+      </div>
+      <div class="properties-row">
+        <div class="property-card">
+          <img
+            class="property-img"
+            src="https://images.unsplash.com/photo-1460518451285-97b6aa326961?auto=format&fit=crop&w=400&q=80"
+            alt="Modern Downtown Apartment"
+          />
+          <div class="property-badge">Featured</div>
+          <div class="property-fav">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+              />
+            </svg>
+          </div>
+          <div class="property-content">
+            <span class="property-type">Apartment</span>
+            <div class="property-price">$485,000</div>
+            <div class="property-title">
+              Modern Downtown Apartment with City Views
+            </div>
+            <div class="property-location">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                />
+              </svg>
+              Downtown, San Francisco, CA
+            </div>
+            <div class="property-details">
+              <span
+                ><svg viewBox="0 0 24 24">
+                  <path
+                    d="M7 20v-2h10v2H7zm0-4V8c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8H7zm2-8h6v8H9V8z"
+                  /></svg
+                >2</span
+              >
+              <span
+                ><svg viewBox="0 0 24 24">
+                  <path
+                    d="M7 20v-2h10v2H7zm0-4V8c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8H7zm2-8h6v8H9V8z"
+                  /></svg
+                >2</span
+              >
+              <span
+                ><svg viewBox="0 0 24 24"><path d="M3 13h18v2H3z" /></svg>1200
+                sqft</span
+              >
+            </div>
+            <button class="property-btn">View Details</button>
+          </div>
+        </div>
+        <div class="property-card">
+          <img
+            class="property-img"
+            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
+            alt="Luxury Family Home"
+          />
+          <div class="property-badge">Featured</div>
+          <div class="property-fav">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+              />
+            </svg>
+          </div>
+          <div class="property-content">
+            <span class="property-type">House</span>
+            <div class="property-price">$1,250,000</div>
+            <div class="property-title">
+              Luxury Family Home with Pool and Garden
+            </div>
+            <div class="property-location">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                />
+              </svg>
+              Suburbs, Austin, TX
+            </div>
+            <div class="property-details">
+              <span
+                ><svg viewBox="0 0 24 24">
+                  <path
+                    d="M7 20v-2h10v2H7zm0-4V8c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8H7zm2-8h6v8H9V8z"
+                  /></svg
+                >4</span
+              >
+              <span
+                ><svg viewBox="0 0 24 24">
+                  <path
+                    d="M7 20v-2h10v2H7zm0-4V8c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8H7zm2-8h6v8H9V8z"
+                  /></svg
+                >3</span
+              >
+              <span
+                ><svg viewBox="0 0 24 24"><path d="M3 13h18v2H3z" /></svg>2800
+                sqft</span
+              >
+            </div>
+            <button class="property-btn">View Details</button>
+          </div>
+        </div>
+        <div class="property-card">
+          <img
+            class="property-img"
+            src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=400&q=80"
+            alt="Penthouse with Ocean Views"
+          />
+          <div class="property-badge">Featured</div>
+          <div class="property-fav">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+              />
+            </svg>
+          </div>
+          <div class="property-content">
+            <span class="property-type">Condo</span>
+            <div class="property-price">$2,100,000</div>
+            <div class="property-title">
+              Penthouse with Panoramic Ocean Views
+            </div>
+            <div class="property-location">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                />
+              </svg>
+              Beachfront, Miami, FL
+            </div>
+            <div class="property-details">
+              <span
+                ><svg viewBox="0 0 24 24">
+                  <path
+                    d="M7 20v-2h10v2H7zm0-4V8c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8H7zm2-8h6v8H9V8z"
+                  /></svg
+                >3</span
+              >
+              <span
+                ><svg viewBox="0 0 24 24">
+                  <path
+                    d="M7 20v-2h10v2H7zm0-4V8c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8H7zm2-8h6v8H9V8z"
+                  /></svg
+                >3</span
+              >
+              <span
+                ><svg viewBox="0 0 24 24"><path d="M3 13h18v2H3z" /></svg>2200
+                sqft</span
+              >
+            </div>
+            <button class="property-btn">View Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
